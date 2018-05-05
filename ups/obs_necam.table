@@ -1,0 +1,2 @@
+setupRequired(pipe_tasks)
+envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
