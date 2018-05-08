@@ -13,3 +13,9 @@ from lsst.ip.isr import IsrTask
 
 class NecamMapper(CameraMapper):
     packageName = 'obs_necam'
+
+    def __init__(self, inputPolicy=None, **kwargs):
+
+        #Declare the policy file:
+        policyFile = Policy.defaultPolicyFile(self.packageName, "NecamMapper.yaml", "policy")
+        policy =Policy(policyFile)
