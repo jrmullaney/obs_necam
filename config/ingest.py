@@ -1,12 +1,13 @@
-from lsst.obs.goto.ingest import GotoParseTask
-config.parse.retarget(GotoParseTask)
+'''
+There is a default parse task included with the LSST stack, however it may not
+be suited to translate the data in your image headers. Usually, you'll need to
+write your own translator and load it into the stack. Necam's translators are  saved in:
+obs_necam/python/lsst/obs/necam/ingest.py
 
-#from lsst.obs.goto.printDict  import printDict
-
-#obj = printDict(config, path=['config'])
-
-#print config.register.columns
-#quit()
+To load them into the stack, we first import them, then retarget them. 
+'''
+from lsst.obs.necam.ingest import NecamParseTask
+config.parse.retarget(NecamParseTask)
 
 config.parse.translation = {'dataType':'IMGTYPE',
                             'expTime':'EXPTIME',
@@ -19,8 +20,6 @@ config.parse.translation = {'dataType':'IMGTYPE',
 
 config.parse.translators = {'dateObs':'translate_Date',
                             'taiObs':'translate_Date'}
-
-#config.parse.translators = {'visit':'translate_visit'}
                             
 config.register.visit = ['visit', 'ccd', 'filter','dateObs','taiObs']
 
@@ -35,8 +34,3 @@ config.register.columns = {'frameId':'text',
                            'dateObs':'text',
                            'taiObs':'text',
                            'field':'text' }
-
-#obj = printDict(config, path=['config'])
-
-#print config.register.columns
-#quit()
