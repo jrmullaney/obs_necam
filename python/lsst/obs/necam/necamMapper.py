@@ -3,7 +3,6 @@ from __future__ import absolute_import, division, print_function
 import re
 import os
 
-
 from lsst.daf.persistence import Policy
 from lsst.obs.base import CameraMapper, exposureFromImage
 import lsst.afw.image.utils as afwImageUtils
@@ -16,6 +15,8 @@ class NecamMapper(CameraMapper):
 
     def __init__(self, inputPolicy=None, **kwargs):
 
-        #Declare the policy file:
+        #Declare the policy file...
         policyFile = Policy.defaultPolicyFile(self.packageName, "NecamMapper.yaml", "policy")
-        policy =Policy(policyFile)
+        policy = Policy(policyFile)
+        #...and add it to the mapper:
+        super(NecamMapper, self).__init__(policy, os.path.dirname(policyFile), **kwargs)

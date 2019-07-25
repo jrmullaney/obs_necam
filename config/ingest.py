@@ -15,15 +15,15 @@ config.parse.retarget(NecamParseTask)
 config.parse.translation = {'dataType':'IMGTYPE',
                             'expTime':'EXPTIME',
                             'ccd':'INSTRUME',
-                            'frameId':'RUN-ID',
-                            'visit':'RUN-ID',
+                            'frameId':'RUN',
+                            'visit':'RUN',
                             'filter':'FILTER',
                             'field':'OBJECT'
                            }
 
 #These are the data that need to be parsed (translated)
-config.parse.translators = {'dateObs':'translate_Date',
-                            'taiObs':'translate_Date'}
+config.parse.translators = {'dateObs':'translateDate',
+                            'taiObs':'translateDate'}
                             
 config.register.visit = ['visit', 'ccd', 'filter','dateObs','taiObs']
 config.register.unique = ['visit', 'ccd', 'filter']

@@ -1,11 +1,12 @@
 needCalibRegistry: true
 
-camera : ../camera
+camera: ../camera
  
-defaultLevel : Ccd 
+defaultLevel: Ccd 
        
 exposures: 
-       raw:
-         python: lsst.afw.image.DecoratedImageF
-         persistable: DecoratedImageF
-         template: 'raw/%(dateObs)s/%(filter)s/%(dataType)s-%(ccd)s-%(visit)s.fts'
+  raw:
+    python: lsst.afw.image.DecoratedImageF
+    persistable: DecoratedImageF
+    template: 'raw/%(dateObs)s/%(dataType)s-%(visit)s-%(filter)s-%(ccd)s.fts'
+
