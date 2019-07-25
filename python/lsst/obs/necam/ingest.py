@@ -1,11 +1,18 @@
 from lsst.pipe.tasks.ingest import ParseTask
 from astropy.time import Time
-import re
     
 class NecamParseTask(ParseTask):
 
-    def translateDate(self, md):
+    '''
+    [From https://github.com/lsst/obs_lsst/blob/f0c4ae506e8e0a85789aebdd970d7e704c9c6e24/
+    python/lsst/obs/lsst/ingest.py#L54]:
+    All translator methods receive the header metadata [here via "md"] and should return the appropriate value, or None if the value cannot be determined. 
+    '''
 
+    def translateDate(self, md):
+        '''
+        As an example, this method takes the date in the header of the fits file, which is in the format yyyymmdd, and converts it into yyyy-mm-dd format. This isn't strictly necessary, but it's a good example of what a translate script can be used to do.
+        '''
         date = md.get("DATE-OBS")
         date = [date[0:4], date[4:6], date[6:]]
         date = '-'.join(date)
