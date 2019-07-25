@@ -20,3 +20,21 @@ class NecamParseTask(ParseTask):
                 
         return t
      
+    def translateVisit(self, md):
+        '''
+        Header information is extracted as string, but "visit" is more suited to integer.
+        '''
+        return int(md.get("RUN")) 
+                    
+    def translateCcd(self, md):
+        '''
+        Header information is extracted as string, but "ccd" is more suited to integer.
+        '''
+        return int(md.get("INSTRUME"))
+
+    def translateExpTime(self, md):
+        '''
+        Header information is extracted as string, but "expTime" is more suited to float.
+        '''
+        return float(md.get("EXPTIME"))  
+                

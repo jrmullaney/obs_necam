@@ -13,26 +13,23 @@ config.parse.retarget(NecamParseTask)
 
 #The following grabs data from the image headers that don't need parsing (i.e., translating). Header keywords are on the right, stack keywords on the left:
 config.parse.translation = {'dataType':'IMGTYPE',
-                            'expTime':'EXPTIME',
-                            'ccd':'INSTRUME',
-                            'frameId':'RUN',
-                            'visit':'RUN',
-                            'filter':'FILTER',
-                            'field':'OBJECT'
+                            'filter':'FILTER'
                            }
 
 #These are the data that need to be parsed (translated)
 config.parse.translators = {'dateObs':'translateDate',
-                            'taiObs':'translateDate'}
+                            'taiObs':'translateDate',
+                            'expTime':'translateExpTime',
+                            'visit':'translateVisit',
+                            'ccd':'translateCcd'}
                             
 config.register.visit = ['visit', 'ccd', 'filter','dateObs','taiObs']
 config.register.unique = ['visit', 'ccd', 'filter']
-config.register.columns = {'frameId':'text',
-                           'visit':'text',
-                           'ccd':'text',
+config.register.columns = {'visit':'int',
+                           'ccd':'int',
                            'filter':'text',
                            'dataType':'text',
                            'expTime':'double',
                            'dateObs':'text',
-                           'taiObs':'text',
-                           'field':'text' }
+                           'taiObs':'text'
+                           }

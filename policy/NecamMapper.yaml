@@ -4,9 +4,17 @@ camera: ../camera
  
 defaultLevel: Ccd 
        
+# Even if it were possible and you **only** used the defaults in the obs_base/policy files you still need to include exposures, calibrations, and datasets so that it knows to refer to the defaults in obs_base.
 exposures: 
   raw:
     python: lsst.afw.image.DecoratedImageF
     persistable: DecoratedImageF
-    template: 'raw/%(dateObs)s/%(dataType)s-%(visit)s-%(filter)s-%(ccd)s.fts'
+    template: 'raw/%(dateObs)s/%(dataType)s-%(visit)04d-%(filter)s-%(ccd)02d.fts'
 
+calibrations:
+  this:
+    template: 'this.txt'
+
+datasets:
+  processCcd_metadata:
+    template: 'processCcd_md/%(dateObs)s/processCcd_md-%(visit)04d-%(filter)s-%(ccd)02d.boost'
