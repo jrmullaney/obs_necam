@@ -8,8 +8,6 @@ To adapt the LSST stack to process data from other astronomical surveys involves
 
 `obs_necam` is a completely stripped down obs package. It is the abosolute minimum that is needed to process a single science frame. The idea is that it will be a starting-off point for others to build-upon when developing their own obs packages. With that in mind, we have included extensive comments throughout the package to help guide others in developing their own obs packages.
 
-## Instructions for use
-
 
 
 
