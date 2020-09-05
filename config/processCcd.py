@@ -17,7 +17,7 @@ configDir = os.path.join(getPackageDir("obs_necam"), "config")
 config.isr.load(os.path.join(configDir, "isr.py"))
 
 #Characterise:
-config.isr.load(os.path.join(configDir, "characterise.py"))
+config.charImage.load(os.path.join(configDir, "characterize.py"))
 
 #Load Calibrate configurations
 config.doCalibrate = False

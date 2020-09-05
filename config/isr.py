@@ -5,7 +5,6 @@ config.doWrite = False
 '''
 config.doWrite = False
 config.doOverscan = False
-config.doAddDistortionModel = False
 config.doDefect = False
 config.doAssembleIsrExposures = False
 config.doBias = False
