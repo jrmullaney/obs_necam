@@ -1,3 +1,4 @@
-setupRequired(pipe_tasks)
-setupRequired(pipe_drivers)
+setupRequired(pipe_tasks) #Needed for 
+#setupRequired(pipe_drivers)
+setupRequired(ctrl_mpexec) #Needed for butler
 envPrepend(PYTHONPATH, ${PRODUCT_DIR}/python)
