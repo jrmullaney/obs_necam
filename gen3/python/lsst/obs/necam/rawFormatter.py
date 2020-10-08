@@ -6,6 +6,7 @@ from lsst.obs.base import FitsRawFormatterBase
 class NeCamRawFormatter(FitsRawFormatterBase):
     """
     Gen3 Butler formatter for NeCam raw data.
+    This isn't strictly needed for instrument registration or ingestion.
     """
     pass
     #translatorClass = NeCamTranslator
