@@ -9,8 +9,8 @@ obs_necam/python/lsst/obs/necam/ingest.py
 To load them into the stack, we first import them, then retarget them. 
 '''
 from lsst.obs.necam.ingest import NecamParseTask
-config.parse.retarget(NecamParseTask)
-
+config.parse.retarget(NeCamParseTask)
+blah
 #The following grabs data from the image headers that don't need parsing (i.e., translating). Header keywords are on the right, stack keywords on the left:
 config.parse.translation = {'dataType':'IMGTYPE',
                             'filter':'FILTER'

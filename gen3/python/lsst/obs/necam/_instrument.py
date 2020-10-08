@@ -1,22 +1,15 @@
 #import os
 #from lsst.utils import getPackageDir
-
+from lsst.daf.butler.core.utils import getFullTypeName
 from lsst.obs.base import Instrument
-from lsst.obs.base import FilterDefinition, FilterDefinitionCollection
+from .necamFilters import NECAM_FILTER_DEFINITIONS
 
 class NeCam(Instrument):
-    #policyName = "necam"
+    #policyName = "NeCam"
     #obsDataPackage = "obs_necam_data"
-    filterDefinitions = FilterDefinitionCollection(
-        FilterDefinition(
-            physical_filter="NECAM-Clear",
-            abstract_filter="clear",
-            lambdaEff=535.5, alias={'Clear'}
-            )
-    )
+    filterDefinitions = NECAM_FILTER_DEFINITIONS
 
     def __init__(self, **kwargs):
-
         #super().__init__(**kwargs)
         #packageDir = getPackageDir("obs_necam")
         #self.configPaths = [os.path.join(packageDir, "config"),
@@ -24,35 +17,61 @@ class NeCam(Instrument):
         pass
 
     def getCamera(self):
-        #path = os.path.join(getPackageDir("obs_necam"), "camera")
-        #return self._getCameraFromPath(path)
+        '''
+        Needed to register instrument
+        '''
         pass
-        
+
+    @classmethod
     def getName(cls):
-        #return "NECAM"
-        pass
+        '''
+        Needed to register instrument and must return the instrument name.
+        '''
+        return "NeCam"
 
     def getRawFormatter(self, dataId):
-        # Docstring inherited from Instrument.getRawFormatter
-        # Import the formatter here to prevent a circular dependency.
-        #from .rawFormatter import HyperSuprimeCamRawFormatter, HyperSuprimeCamCornerRawFormatter
-        #if dataId["detector"] in (100, 101, 102, 103):
-        #    return HyperSuprimeCamCornerRawFormatter
-        #else:
-        #    return HyperSuprimeCamRawFormatter
-        pass
-    
-    def makeDataIdTranslatorFactory(self):# -> TranslatorFactory:
-        # Docstring inherited from lsst.obs.base.Instrument.
-        #factory = TranslatorFactory()
-        #factory.addGenericInstrumentRules(self.getName())
-        # Translate Gen2 `filter` to band if it hasn't been consumed
-        # yet and gen2keys includes tract.
-        #factory.addRule(PhysicalFilterToBandKeyHandler(self.filterDefinitions),
-        #                instrument=self.getName(), gen2keys=("filter", "tract"), consume=("filter",))
-        pass
-    
-    def register(self, resgistry):
+        '''
+        Needed to register instrument
+        '''
         pass
 
+    def makeDataIdTranslatorFactory(self):
+        '''
+        Needed to register instrument
+        '''
+        pass
+    
+    def register(self, registry):
+        '''
+        This populates the database with instrument and detector-specific information, and is implemented with:
+        butler register-instrument DATA_REPO lsst.obs.necam.NeCam
+        '''
+        #Register the instrument:
+        obsMax = 2**31
+        registry.insertDimensionData(
+            "instrument",
+            {
+                "name": self.getName(),
+                "detector_max": 1,
+                "visit_max": obsMax,
+                "exposure_max": obsMax,
+                "class_name": getFullTypeName(self)
+            }   
+            )
+        
+        #Register the detector(s):
+        registry.insertDimensionData(
+                "detector",
+                {
+                    "instrument": self.getName(),
+                    "id":1,
+                    "full_name": '1',
+                    "name_in_raft": '1',
+                    "raft": None,
+                    "purpose": None
+                }
+                )
+
+        #Registers the filter(s):
+        self._registerFilters(registry)
     

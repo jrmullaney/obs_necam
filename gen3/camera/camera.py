@@ -77,4 +77,4 @@ config.detectorList[0].id=1
 # Name of this config
 #This isn't strictly required for CameraMapper
 #but I'm keeping it there as it seems like a good idea:
-config.name='Necam'
+config.name='NeCam'
