@@ -1,0 +1,16 @@
+# User specific aliases and functions
+# Set up EUPS by sourcing loadLSST.bash
+source /opt/lsst/software/stack/loadLSST.bash
+echo "EUPS setup"
+
+# Set up obs_necam:
+eups declare obs_necam gen2 -r /opt/lsst/software/stack/stack/current/Linux64/obs_necam/gen2
+eups declare obs_necam gen3 -r /opt/lsst/software/stack/stack/current/Linux64/obs_necam/gen3
+eups declare -t current obs_necam gen3
+
+#Export display variables
+export QT_XKB_CONFIG_ROOT=/usr/share/X11/xkb
+export XDG_RUNTIME_DIR=/tmp/runtime-lsst
+
+# Change prompt:
+PS1="LSSTStack> "

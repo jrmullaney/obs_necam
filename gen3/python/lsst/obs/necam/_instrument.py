@@ -4,6 +4,9 @@ from lsst.daf.butler.core.utils import getFullTypeName
 from lsst.obs.base import Instrument
 from .necamFilters import NECAM_FILTER_DEFINITIONS
 from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
+# Comment-out the following line if you put .translators/necam.py in the 
+# astro_metadata_translator repository:
+from .translators import NeCamTranslator
 
 class NeCam(Instrument):
     

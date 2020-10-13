@@ -1,7 +1,11 @@
 from lsst.obs.base import FitsRawFormatterBase
-from astro_metadata_translator import NeCamTranslator
 from ._instrument import NeCam
 from .necamFilters import NECAM_FILTER_DEFINITIONS
+# Comment-out the following line if you put .translators/necam.py in the 
+# astro_metadata_translator repository: 
+from .translators import NeCamTranslator
+# ...and uncomment the following:
+# from astro_metadata_translator import NeCamTranslator
 
 class NeCamRawFormatter(FitsRawFormatterBase):
     """

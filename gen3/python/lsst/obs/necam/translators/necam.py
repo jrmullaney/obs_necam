@@ -1,16 +1,17 @@
-"""Metadata translation code for NeCam FITS headers"""
 
 __all__ = ("NeCamTranslator", )
 
-from .fits import FitsTranslator
-from .helpers import altaz_from_degree_headers
-from ..translator import cache_translation
+from astro_metadata_translator import cache_translation, FitsTranslator
 import astropy.units as u
 from astropy.time import Time
 from astropy.coordinates import SkyCoord, Angle
 
 class NeCamTranslator(FitsTranslator):
-    """Metadata translator for NeCam standard headers.
+    """Metadata translator for NeCam FITS headers.
+    
+    Under normal circumstances, translators are found in the astro_metadata_translator repository. However, it is possible to also put them in an obs_package, provided that they are imported in both the _instrument.py and rawFormatter.py files.
+
+    This one is in obs_necam to keep everything togeter in one place.  
     """
 
     """Name of this translation class"""
@@ -56,7 +57,7 @@ class NeCamTranslator(FitsTranslator):
     @classmethod
     def can_translate(cls, header, filename=None):
         """
-        butler ingest-raws cycles through the known instruments in astro_metadata_translata, using this method to determine whether each one can translate supplied header. 
+        butler ingest-raws cycles through the known translators, using this method to determine whether each one can translate supplied header. 
 
         This example just checks the INSTRUME header keyword and returns True if it contains "NECAM". However, you can make this as stringent as you like (e.g., perhaps you can currently handle a limited range of filters) 
 
