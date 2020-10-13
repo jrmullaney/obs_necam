@@ -1,0 +1,31 @@
+description: Butler Data Repository Export
+version: 0
+data:
+- type: collection
+  collection_type: RUN
+  name: refcats
+  host: null
+  timespan_begin: null
+  timespan_end: null
+- type: dataset_type
+  name: ps1_pv3_3pi_20170110
+  dimensions:
+  - htm7
+  storage_class: SimpleCatalog
+  is_calibration: false
+- type: dataset
+  dataset_type: ps1_pv3_3pi_20170110
+  run: refcats
+  records:
+  - dataset_id:
+    - 1014
+    data_id:
+    - htm7: 189584
+    path: ps1_pv3_3pi_20170110/ps1_pv3_3pi_20170110_189584_refcats.fits
+    formatter: lsst.obs.base.formatters.fitsGeneric.FitsGenericFormatter
+  - dataset_id:
+    - 1013
+    data_id:
+    - htm7: 189648
+    path: ps1_pv3_3pi_20170110/ps1_pv3_3pi_20170110_189648_refcats.fits
+    formatter: lsst.obs.base.formatters.fitsGeneric.FitsGenericFormatter
