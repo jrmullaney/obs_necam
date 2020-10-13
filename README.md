@@ -8,6 +8,10 @@ To adapt the LSST stack to process data from other astronomical surveys involves
 
 `obs_necam` is a completely stripped down obs package. It is the abosolute minimum that is needed to process a single science frame. The idea is that it will be a starting-off point for others to build-upon when developing their own obs packages. With that in mind, we have included extensive comments throughout the package to help guide others in developing their own obs packages.
 
+In this repository, you'll find two versions of `obs_necam` - one that utilises the Generation 2 (gen2) butler, and one that uses the newer Generation 3 (gen3) butler. You'll also find a data directory that contains two subdirectories: `rawData/` and `processedData/`. The first contains a jupyter notebook that you can use to generate a fits image that you can process with obs_necam. The `processedData` subdirectory itself contains another subdirectory `bin` which contains shell scripts that call LSST stack tasks to process the simulated data.
+
+Finally, this repository contains a `docker` directory, which contains a Dockerfile that will build a docker image. Once this image has been built, navigate to `data/` and execute `runLsstDocker_vWeekly.sh`.
+
 
 
 
