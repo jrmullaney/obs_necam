@@ -9,7 +9,9 @@ You'll likely need to change the user and group ids (UID, GID) in the Dockerfile
 ```
 
 Once you've edited your Dockerfile, you need to build it using:
+```
 docker build --tag lsst:weekly .
+```
 
 Don't worry about following the warnings:
 ```
