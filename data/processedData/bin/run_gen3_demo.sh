@@ -24,7 +24,7 @@ butler import DATA_REPO "${PWD}/../refcats" --export-file "${PWD}/../refcats/exp
 
 if [ ! -d DATA_REPO/NeCam/raw ]; then
     butler ingest-raws DATA_REPO ../rawData/ --ingest-task lsst.obs.necam.ingest.NeCamRawIngestTask
-    butler define-visits DATA_REPO --instrument lsst.obs.necam.NeCam --collections NeCam/raw/all
+    butler define-visits DATA_REPO lsst.obs.necam.NeCam --collections NeCam/raw/all
 fi
 
 pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml --input NeCam/raw/all --register-dataset-types -p "${PIPE_TASKS_DIR}/pipelines/ProcessCcd.yaml" --instrument lsst.obs.necam.NeCam --output-run demo_collection
