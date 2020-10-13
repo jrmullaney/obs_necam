@@ -16,7 +16,7 @@ if [ ! -f DATA_REPO/butler.yaml ]; then
 fi
 
 # Import the reference catalogues to the butler.
-butler import DATA_REPO "${PWD}/input_data" --export-file "${PWD}/input_data/export.yaml" --skip-dimensions instrument,physical_filter,detector
+butler import DATA_REPO "${PWD}/../refcats" --export-file "${PWD}/../refcats/export.yaml" --skip-dimensions instrument,physical_filter,detector
 
 if [ ! -d DATA_REPO/NeCam/raw ]; then
     butler ingest-raws DATA_REPO ../rawData/ --ingest-task lsst.obs.necam.ingest.NeCamRawIngestTask
