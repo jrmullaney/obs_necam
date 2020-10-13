@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# IMPORTANT: Make sure the gen3 version of obs_necam is set up before running
+# this script:
+# >> setup obs_necam gen3
+
 # This should already be set, but doesn't harm to make sure:
 export DYLD_LIBRARY_PATH=${LSST_LIBRARY_PATH}
 

@@ -30,7 +30,7 @@ class NecamParseTask(ParseTask):
         '''
         Header information is extracted as string, but "ccd" is more suited to integer.
         '''
-        return int(md.get("INSTRUME"))
+        return int(md.get("DETECTOR"))
 
     def translateExpTime(self, md):
         '''
