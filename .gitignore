@@ -1,2 +1,5 @@
 __pycache__
 *~
+data/processedData/DATA_REPO/
+.DS_Store
+data/rawData/r0001.fits
