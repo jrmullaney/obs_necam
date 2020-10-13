@@ -10,8 +10,9 @@ You'll likely need to change the user and group ids (UID, GID) in the Dockerfile
 
 Once you've edited your Dockerfile, you need to build it using:
 ```
-docker build --tag lsst:weekly .
+docker build --tag lsst:w_2020_41 .
 ```
+With the 41st weekly release of 2020 being the latest build that I know obs_necam works with.
 
 Don't worry about following the warnings:
 ```

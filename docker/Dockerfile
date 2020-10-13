@@ -1,5 +1,5 @@
 #Use the official LSST stack as a parent image
-FROM lsstsqre/centos:7-stack-lsst_distrib-w_latest
+FROM lsstsqre/centos:7-stack-lsst_distrib-w_2020_41
 
 ARG UID=501
 ARG GID=20
