@@ -1,39 +1,45 @@
-#import os
-#from lsst.utils import getPackageDir
+import os
+from lsst.utils import getPackageDir
 from lsst.daf.butler.core.utils import getFullTypeName
 from lsst.obs.base import Instrument
 from .necamFilters import NECAM_FILTER_DEFINITIONS
+from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
 
 class NeCam(Instrument):
-    #policyName = "NeCam"
-    #obsDataPackage = "obs_necam_data"
+    
+    # Filter definitions are needed when registering the filters.
     filterDefinitions = NECAM_FILTER_DEFINITIONS
 
     def __init__(self, **kwargs):
-        #super().__init__(**kwargs)
-        #packageDir = getPackageDir("obs_necam")
-        #self.configPaths = [os.path.join(packageDir, "config"),
-        #                    os.path.join(packageDir, "config", self.policyName)]
-        pass
-
+        super().__init__(**kwargs)
+        
+        # Tell it where the config file are:
+        packageDir = getPackageDir("obs_necam")
+        self.configPaths = [os.path.join(packageDir, "config")]
+        
     def getCamera(self):
         '''
-        Needed to register instrument
+        This grabs the camera information in the camera/camera.py file.
         '''
-        pass
+        config = CameraConfig()
+        path = os.path.join(getPackageDir("obs_necam"), "camera")
+        config.load(os.path.join(path, "camera.py"))
+        
+        return makeCameraFromPath(
+            cameraConfig=config,
+            ampInfoPath=path,
+            shortNameFunc=lambda name: name.replace(" ", "_"))
 
     @classmethod
     def getName(cls):
         '''
-        Needed to register instrument and must return the instrument name.
+        This must return the instrument name.
         '''
         return "NeCam"
 
     def getRawFormatter(self, dataId):
-        '''
-        Needed to register instrument
-        '''
-        pass
+        from .rawFormatter import NeCamRawFormatter
+        return NeCamRawFormatter
 
     def makeDataIdTranslatorFactory(self):
         '''
@@ -46,8 +52,9 @@ class NeCam(Instrument):
         This populates the database with instrument and detector-specific information, and is implemented with:
         butler register-instrument DATA_REPO lsst.obs.necam.NeCam
         '''
+
         #Register the instrument:
-        obsMax = 2**31
+        obsMax = 2**5 #NeCam only ever took 32 images!
         registry.insertDimensionData(
             "instrument",
             {
@@ -65,8 +72,8 @@ class NeCam(Instrument):
                 {
                     "instrument": self.getName(),
                     "id":1,
-                    "full_name": '1',
-                    "name_in_raft": '1',
+                    "full_name": '01',
+                    "name_in_raft": None,
                     "raft": None,
                     "purpose": None
                 }

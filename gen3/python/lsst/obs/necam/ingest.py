@@ -3,8 +3,9 @@ import lsst.obs.base
 from ._instrument import NeCam
 
 class NeCamRawIngestTask(lsst.obs.base.RawIngestTask):
-    
+
     def extractMetadata(self, filename: str) -> RawFileData:
+
         datasets = []   
         fitsData = lsst.afw.fits.Fits(filename, 'r')
         header = fitsData.readMetadata()

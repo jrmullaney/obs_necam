@@ -12,35 +12,54 @@ from astropy.coordinates import SkyCoord, Angle
 class NeCamTranslator(FitsTranslator):
     """Metadata translator for NeCam standard headers.
     """
-    name = "NeCam"
+
     """Name of this translation class"""
+    name = "NeCam"
 
-    supported_instrument = "NeCam"
     """Supports the Necam instrument."""
+    supported_instrument = "NeCam"
 
-    _const_map = {"boresight_rotation_coord": "unknown",
-                  "detector_group": None}
-    """Properties that you may not know, nor can calculate"""
+    """
+    _const_map includes properties that you may not know, nor can calculate.
+    
+    Bear in mind that some examples listed here as "None" may require units or be a specific class should you want to upgrade them to _trivial_map or to_<<example>>. For example, "altaz_begin" needs to be an astropy.coordinates.AltAz class. 
+    """
+    _const_map = {"boresight_rotation_coord": "sky",
+                  "detector_group": None,
+                  "boresight_airmass": None, #This could be calculated.
+                  "boresight_rotation_angle": Angle(90 * u.deg),
+                  "science_program": None,
+                  "temperature": 300. * u.K,
+                  "pressure": 985. * u.hPa,
+                  "relative_humidity": None,
+                  "altaz_begin": None, #This could be calculated.
+                  "location": None,
+        }
 
-    """Properties that can be taken directly from header"""
+    """
+    _trivial_map includes properties that can be taken directly from header
+    """
     _trivial_map = {
-        "exposure_time": ("EXPTIME", dict(unit=u.s)),
-        "boresight_airmass": "AIRMASS",
-        "boresight_rotation_angle": "ANGLE",
+        "exposure_id": "RUN",
+        "visit_id": "RUN",
+        "observation_id": "RUN",
+        "detector_exposure_id": "RUN",
+        "detector_num": "DETECTOR",
         "detector_serial": "DETECTOR",
+        "physical_filter": "FILTER",
+        "exposure_time": ("EXPTIME", dict(unit=u.s)),
+        "dark_time": ("EXPTIME", dict(unit=u.s)),
         "object": "OBJECT",
-        "temperature": ("OUT-TMP", dict(unit=u.K)),
-        "pressure": ("OUT-PRS", dict(unit=u.hPa)),
-        "relative_humidity": "OUT-HUM",
-        "science_program": "PROPID",
         "observation_type": "OBSTYPE",
         }
 
     @classmethod
     def can_translate(cls, header, filename=None):
-        """Indicate whether this translation class can translate the
-        supplied header.
-        Checks the INSTRUME and FILTER headers.
+        """
+        butler ingest-raws cycles through the known instruments in astro_metadata_translata, using this method to determine whether each one can translate supplied header. 
+
+        This example just checks the INSTRUME header keyword and returns True if it contains "NECAM". However, you can make this as stringent as you like (e.g., perhaps you can currently handle a limited range of filters) 
+
         Parameters
         ----------
         header : `dict`-like
@@ -53,46 +72,31 @@ class NeCamTranslator(FitsTranslator):
             `True` if the header is recognized by this class. `False`
             otherwise.
         """
+        
         # Use INSTRUME. Because of defaulting behavior only do this
         # if we really have an INSTRUME header
         if "INSTRUME" in header:
-            via_instrume = super().can_translate(header, filename=filename)
-            if via_instrume:
-                return via_instrume
-        return True
+            if header["INSTRUME"] == "NECAM":
+                return True
+        return False
 
-    @cache_translation
-    def to_exposure_id(self):
-        return 1
+    """
+    The to_<<example>> methods are used when properties can't be trivially taken from the header. 
     
-    @cache_translation
-    def to_visit_id(self):
-        return self.to_exposure_id()
-
-    @cache_translation
-    def to_physical_filter(self):
-        return 'Clear'
-
+    For example, the date in the header needs to be converted into an astropy.Time class.
+    """
     @cache_translation 
     def to_datetime_begin(self):
         date = self._header["DATE-OBS"]
         date = [date[0:4], date[4:6], date[6:]]
         date = '-'.join(date)
-        t = Time(date, format='iso', scale="utc")
+        t = Time(date, format="iso", scale="utc")
         return t
     
     @cache_translation 
     def to_datetime_end(self):
         datetime_end = self.to_datetime_begin() + self.to_exposure_time()
         return datetime_end
-
-    @cache_translation 
-    def to_dark_time(self):
-        return 100 * u.s
-
-    @cache_translation
-    def to_detector_exposure_id(self):
-        return self.to_exposure_id() 
 
     @cache_translation    
     def to_tracking_radec(self):
@@ -101,21 +105,16 @@ class NeCamTranslator(FitsTranslator):
         return radec
 
     @cache_translation
-    def to_altaz_begin(self):
-        return None
-
-    @cache_translation
     def to_instrument(self):
-        return 'NeCam'
+        if self._header["INSTRUME"] == "NECAM":
+            return "NeCam"
+        else:
+            #It should never get here, given can_translate().
+            return "Unknown"
     
-    @cache_translation
-    def to_observation_id(self):
-        return 'NeCam'
+    def to_telescope(self):
+        return self.to_instrument()
 
     @cache_translation
     def to_detector_name(self):
-        return '1'
-
-    @cache_translation
-    def to_detector_num(self):
-        return 1
+        return '{:02d}'.format(self._header["DETECTOR"])
