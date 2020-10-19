@@ -23,7 +23,7 @@ CCDs:
         yaw: 0.0
         roll: 0.0
         amplifiers:
-            AMP_E2V: &AMP_E2V
+            AMP_E2V:
                 rawBBox: [[0,0],[6144, 4096]]
                 hdu: 1
                 ixy: [0,0]
