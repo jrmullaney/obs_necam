@@ -2,7 +2,6 @@ import os
 from lsst.utils import getPackageDir
 from lsst.daf.butler.core.utils import getFullTypeName
 from lsst.obs.base import Instrument, yamlCamera
-#import lsst.obs.base.yamlCamera as yamlCamera
 from .necamFilters import NECAM_FILTER_DEFINITIONS
 from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
 # Comment-out the following line if you put .translators/necam.py in the 
