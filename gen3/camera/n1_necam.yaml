@@ -1,0 +1,44 @@
+name: 'necam'
+plateScale: 1.24
+transforms:
+    nativeSys: 'FocalPlane'
+    FieldAngle:
+        transformType: "radial"
+        coeffs: [0.0, 1.0]
+CCDs:
+    ccd1:
+        name: "ccd1"
+        id: 1
+        serial: '1'
+        detectorType: 0
+        bbox: [[0,0], [6144, 4096]]
+        pixelSize: [1.,1.]
+        transformDict:
+            nativeSys: 'Pixels'
+            transforms: 'None'
+        refpos: [3072,2048]
+        offset: [0,0]
+        transposeDetector: False
+        pitch: 0.0
+        yaw: 0.0
+        roll: 0.0
+        amplifiers:
+            AMP_E2V: &AMP_E2V
+                rawBBox: [[0,0],[6144, 4096]]
+                hdu: 1
+                ixy: [0,0]
+                perAmpData: True
+                rawDataBBox: [[0,0],[6144, 4096]]
+                rawSerialOverscanBBox: [[0,0],[0, 0]]
+                rawParallelOverscanBBox: [[0,0],[0, 0]]
+                rawSerialPrescanBBox: [[0,0],[0, 0]]
+                readCorner: LL
+                gain: 0.5
+                readNoise: 20.
+                saturation: 65535
+                flipXY: [False, False]
+                linearityCoeffs: [0, 65535]
+                linearityType: "None"
+                linearityThreshold: 0
+                linearityMax: 65535
+

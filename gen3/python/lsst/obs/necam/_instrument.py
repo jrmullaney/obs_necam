@@ -1,7 +1,8 @@
 import os
 from lsst.utils import getPackageDir
 from lsst.daf.butler.core.utils import getFullTypeName
-from lsst.obs.base import Instrument
+from lsst.obs.base import Instrument, yamlCamera
+#import lsst.obs.base.yamlCamera as yamlCamera
 from .necamFilters import NECAM_FILTER_DEFINITIONS
 from lsst.afw.cameraGeom import makeCameraFromPath, CameraConfig
 # Comment-out the following line if you put .translators/necam.py in the 
@@ -22,16 +23,13 @@ class NeCam(Instrument):
         
     def getCamera(self):
         '''
-        This grabs the camera information in the camera/camera.py file.
+        This grabs the camera information in the camera/n1_necam.yaml file.
         '''
-        config = CameraConfig()
-        path = os.path.join(getPackageDir("obs_necam"), "camera")
-        config.load(os.path.join(path, "camera.py"))
-        
-        return makeCameraFromPath(
-            cameraConfig=config,
-            ampInfoPath=path,
-            shortNameFunc=lambda name: name.replace(" ", "_"))
+        path = os.path.join(
+            getPackageDir("obs_necam"), 
+            "camera", 
+            'n1_necam.yaml')
+        return yamlCamera.makeCamera(path)
 
     @classmethod
     def getName(cls):
