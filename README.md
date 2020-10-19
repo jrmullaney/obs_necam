@@ -18,7 +18,7 @@ LSSTStack>
 ```
 
 ## Executing the demo scripts
-From within the running docker container, navigate to `/home/lsst/data`, where you'll find the `rawData/` and `processedData/` directories that are mounted from your native filesystem (plus a directory containing a couple of reference catalogues, taken from LSST's [pipeline_check][https://github.com/lsst/pipelines_check] repository, and the `runLsstDocker_w_2020_41.sh` file since the whole `data` directory is mounted):
+From within the running docker container, navigate to `/home/lsst/data`, where you'll find the `rawData/` and `processedData/` directories that are mounted from your native filesystem (plus a directory containing a couple of reference catalogues, taken from LSST's [pipeline_check](https://github.com/lsst/pipelines_check) repository, and the `runLsstDocker_w_2020_41.sh` file since the whole `data` directory is mounted):
 ```
 LSSTStack> cd /home/lsst/data/
 LSSTStack> ls
@@ -30,7 +30,7 @@ LSSTStack> cd processedData/
 LSSTStack> ls
 bin
 ```
-Before executing an commands to process the demo data (presuming you've used the aforementioned jupyter notebook to generate it), you need to set up the necam obs package. This is done using the ``setup`` command. You can only have either the gen2 _or_ gen3 obs package setup at any given time. To set up the gen2 package execute:
+Before executing any commands to process the demo data (presuming you've used the aforementioned jupyter notebook to generate it), you need to set up the necam obs package. This is done using the ``setup`` command. You can only have either the gen2 _or_ gen3 obs package setup at any given time. To set up the gen2 package execute:
 ```
 LSSTStack> setup obs_necam gen2
 ```
@@ -38,15 +38,14 @@ whereas to set up the gen3 package execute:
 ```
 LSSTStack> setup obs_necam gen3
 ```
-With the necam obs package now setup, you can execute the demo scripts. Which script you execute will depend on which generation you set up in the last step:
+With one of the necam obs package now setup, you can execute the corresponding demo scripts. If you set up the gen2 obs package, then execute:
 ```
 LSSTStack> ./bin/run_gen2_demo.sh
 ```
-if you set up the gen2 package, or 
+whereas if you instead set up the gen3 obs package, execute:
 ```
 LSSTStack> ./bin/run_gen3_demo.sh
 ```
-if you set up the gen3 package.
 
 If all goes well, the gen2 demo script should finish with a few lines saying something like:
 ```
@@ -59,7 +58,12 @@ processCcd.charImage.applyApCorr INFO: Applying aperture corrections to 2 instFl
 ```
 whereas the gen3 demo script should finish with a few lines saying something like:
 ```
-
+calibrate.skySources INFO: Added 99 of 100 requested sky sources (99%)
+calibrate.deblend INFO: Deblending 4073 sources
+calibrate.deblend INFO: Deblended: of 4073 sources, 2452 were deblended, creating 20399 children, total 24472 sources
+calibrate.measurement INFO: Measuring 24472 sources (4073 parents, 20399 children)
+calibrate.applyApCorr INFO: Applying aperture corrections to 2 instFlux fields
+calibrate INFO: Copying flags from icSourceCat to sourceCat for 715 sources
 ```
 Don't worry if your numbers don't match the above exactly; I didn't hardcode a random number seed in the aforementioned jupyter notebook (I know, I know...), so those numbers are subject to statistical variation.
 
