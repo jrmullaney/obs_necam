@@ -18,7 +18,7 @@ LSSTStack>
 ```
 
 ## Executing the demo scripts
-From within the running docker container, navigate to `/home/lsst/data`, where you'll find the `rawData/` and `processedData/` directories that are mounted from your native filesystem (plus a directory containing a couple of reference catalogues, taken from LSST's [pipeline_check](https://github.com/lsst/pipelines_check) repository, and the `runLsstDocker_w_2020_41.sh` file since the whole `data` directory is mounted):
+From within the running docker container, navigate to `/home/lsst/data`, where you'll find the `rawData/` and `processedData/` directories that are mounted from your native filesystem (plus a directory containing a couple of reference catalogues, taken from LSST's [pipelines_check](https://github.com/lsst/pipelines_check) repository, and the `runLsstDocker_w_2020_41.sh` file since the whole `data` directory is mounted):
 ```
 LSSTStack> cd /home/lsst/data/
 LSSTStack> ls
