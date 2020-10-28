@@ -1,5 +1,6 @@
-#Use the official LSST stack as a parent image
-FROM lsstsqre/centos:7-stack-lsst_distrib-w_2020_41
+# Use the official LSST stack as a parent image
+# The 43rd weekly build of 2020 is the latest obs_necam has been tested on.
+FROM lsstsqre/centos:7-stack-lsst_distrib-w_2020_43
 
 ARG UID=501
 ARG GID=20

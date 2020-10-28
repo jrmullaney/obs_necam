@@ -27,4 +27,4 @@ if [ ! -d DATA_REPO/NeCam/raw ]; then
     butler define-visits DATA_REPO lsst.obs.necam.NeCam --collections NeCam/raw/all
 fi
 
-pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml --input NeCam/raw/all --register-dataset-types -p "${PIPE_TASKS_DIR}/pipelines/ProcessCcd.yaml" --instrument lsst.obs.necam.NeCam --output-run demo_collection
+pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml --input NeCam/raw/all --register-dataset-types -p "${PIPE_TASKS_DIR}/pipelines/_SingleFrame.yaml" --instrument lsst.obs.necam.NeCam --output-run demo_collection

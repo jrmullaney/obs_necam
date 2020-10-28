@@ -12,9 +12,9 @@ In this repository, you'll find two versions of `obs_necam` - one that utilises 
 
 It is useful to note that the `gen2` and `gen3` directories are entirely self-contained and isolated entities. There is nothing in the `gen2` directory that is needed by the `gen3` version and vice-versa. To demonstrate this, try deleting one and running the other - aside from a complaint when you launch the docker container, you'll otherwise find it works fine. I feel this is useful as many of the aforementioned "official" obs packages contain both gen2 and gen3 files (for good reasons, I may add), making it hard to tell what's actually needed for each generation.
 
-Finally, this repository contains a `docker` directory, which contains a Dockerfile that will build a docker image. Once this image has been built, navigate to `data/` and execute `runLsstDocker_w_2020_41.sh`. If everything has worked ok, you should see something like:
+Finally, this repository contains a `docker` directory, which contains a Dockerfile that will build a docker image. Once this image has been built, navigate to `data/` and execute `runLsstDocker.sh`. If everything has worked ok, you should see something like:
 ```
->> ./runLsstDocker_w_2020_41.sh
+>> ./runLsstDocker.sh
 EUPS setup
 LSSTStack>
 ```
