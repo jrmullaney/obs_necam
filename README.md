@@ -1,6 +1,6 @@
 # A bare-bones obs package for the LSST stack 
 
-The [Legacy Survey of Space and Time](https://www.lsst.org "LSST Homepage") (LSST) is a next-generation astronomical survey to be conducted by the Vera C. Rubin Telescope that will repeatedly survey the entire southern sky to unprecedented depths. A major part of the project is the development of the LSST Science Pipeline (hereafter referred to as the [LSST stack](https://github.com/lsst "LSST Github")) that will process the raw data from the raft of CCDs that form the LSST's detector.
+The [Legacy Survey of Space and Time](https://www.lsst.org "LSST Homepage") (LSST) is a next-generation astronomical survey to be conducted by the Vera C. Rubin Telescope that will repeatedly survey the entire southern sky to unprecedented depths. A major part of the project is the development of the LSST Science Pipelines (hereafter referred to as the [LSST stack](https://github.com/lsst "LSST Github")) that will process the raw data from the raft of CCDs that form the LSST's detector.
 
 Whilst the LSST stack is primarily being developed to process data from the LSST telescope, it has been designed in such a way that it can be used to process data from other astronomical surveys. Indeed, an adapted version of the stack is being used as the primary pipeline for Subaru's HyperSupremeCam (see [Bosch et al. 2018](https://arxiv.org/pdf/1705.06766 "arXiv:1705.06766")).
 
