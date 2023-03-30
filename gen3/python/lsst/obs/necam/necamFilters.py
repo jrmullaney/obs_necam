@@ -6,6 +6,6 @@ NECAM_FILTER_DEFINITIONS = FilterDefinitionCollection(
         FilterDefinition(
             physical_filter="Clear",
             band="Clear",
-            lambdaEff=535.5, alias={'Clear'}
+            alias={'Clear'}
             )
     )

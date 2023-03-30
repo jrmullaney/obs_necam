@@ -20,11 +20,15 @@ if [ ! -f DATA_REPO/butler.yaml ]; then
 fi
 
 # Import the reference catalogues to the butler.
-butler import DATA_REPO "${PWD}/../refcats" --export-file "${PWD}/../refcats/export.yaml" --skip-dimensions instrument,physical_filter,detector
+butler import DATA_REPO "${PWD}/../../refcats" --export-file "${PWD}/../../refcats/export.yaml" --skip-dimensions instrument,physical_filter,detector
 
 if [ ! -d DATA_REPO/NeCam/raw ]; then
-    butler ingest-raws DATA_REPO ../rawData/ --ingest-task lsst.obs.necam.ingest.NeCamRawIngestTask
+    butler ingest-raws DATA_REPO ../../rawData/ --ingest-task lsst.obs.necam.ingest.NeCamRawIngestTask
     butler define-visits DATA_REPO lsst.obs.necam.NeCam --collections NeCam/raw/all
 fi
 
-pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml --input NeCam/raw/all --register-dataset-types -p "${PIPE_TASKS_DIR}/pipelines/_SingleFrame.yaml" --instrument lsst.obs.necam.NeCam --output-run demo_collection
+pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml \
+  --input NeCam/raw/all --register-dataset-types \
+  -p "${PIPE_TASKS_DIR}/pipelines/DRP.yaml#processCcd" \
+  --instrument lsst.obs.necam.NeCam \
+  --output-run demo_collection

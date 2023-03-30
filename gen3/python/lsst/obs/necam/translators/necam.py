@@ -8,10 +8,10 @@ from astropy.coordinates import SkyCoord, Angle
 
 class NeCamTranslator(FitsTranslator):
     """Metadata translator for NeCam FITS headers.
-    
+
     Under normal circumstances, translators are found in the astro_metadata_translator repository. However, it is possible to also put them in an obs_package, provided that they are imported in both the _instrument.py and rawFormatter.py files.
 
-    This one is in obs_necam to keep everything togeter in one place.  
+    This one is in obs_necam to keep everything togeter in one place.
     """
 
     """Name of this translation class"""
@@ -22,8 +22,8 @@ class NeCamTranslator(FitsTranslator):
 
     """
     _const_map includes properties that you may not know, nor can calculate.
-    
-    Bear in mind that some examples listed here as "None" may require units or be a specific class should you want to upgrade them to _trivial_map or to_<<example>>. For example, "altaz_begin" needs to be an astropy.coordinates.AltAz class. 
+
+    Bear in mind that some examples listed here as "None" may require units or be a specific class should you want to upgrade them to _trivial_map or to_<<example>>. For example, "altaz_begin" needs to be an astropy.coordinates.AltAz class.
     """
     _const_map = {"boresight_rotation_coord": "sky",
                   "detector_group": None,
@@ -57,9 +57,9 @@ class NeCamTranslator(FitsTranslator):
     @classmethod
     def can_translate(cls, header, filename=None):
         """
-        butler ingest-raws cycles through the known translators, using this method to determine whether each one can translate supplied header. 
+        butler ingest-raws cycles through the known translators, using this method to determine whether each one can translate supplied header.
 
-        This example just checks the INSTRUME header keyword and returns True if it contains "NECAM". However, you can make this as stringent as you like (e.g., perhaps you can currently handle a limited range of filters) 
+        This example just checks the INSTRUME header keyword and returns True if it contains "NECAM". However, you can make this as stringent as you like (e.g., perhaps you can currently handle a limited range of filters)
 
         Parameters
         ----------
@@ -73,7 +73,7 @@ class NeCamTranslator(FitsTranslator):
             `True` if the header is recognized by this class. `False`
             otherwise.
         """
-        
+
         # Use INSTRUME. Because of defaulting behavior only do this
         # if we really have an INSTRUME header
         if "INSTRUME" in header:
@@ -82,24 +82,24 @@ class NeCamTranslator(FitsTranslator):
         return False
 
     """
-    The to_<<example>> methods are used when properties can't be trivially taken from the header. 
-    
+    The to_<<example>> methods are used when properties can't be trivially taken from the header.
+
     For example, the date in the header needs to be converted into an astropy.Time class.
     """
-    @cache_translation 
+    @cache_translation
     def to_datetime_begin(self):
         date = self._header["DATE-OBS"]
         date = [date[0:4], date[4:6], date[6:]]
         date = '-'.join(date)
         t = Time(date, format="iso", scale="utc")
         return t
-    
-    @cache_translation 
+
+    @cache_translation
     def to_datetime_end(self):
         datetime_end = self.to_datetime_begin() + self.to_exposure_time()
         return datetime_end
 
-    @cache_translation    
+    @cache_translation
     def to_tracking_radec(self):
         radec = SkyCoord(self._header["RA2000"], self._header["DEC2000"],
                          frame="icrs", unit=(u.hourangle, u.deg))
@@ -112,7 +112,7 @@ class NeCamTranslator(FitsTranslator):
         else:
             #It should never get here, given can_translate().
             return "Unknown"
-    
+
     def to_telescope(self):
         return self.to_instrument()
 
