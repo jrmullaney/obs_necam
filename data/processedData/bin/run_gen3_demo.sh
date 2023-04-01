@@ -17,6 +17,7 @@ fi
 if [ ! -f DATA_REPO/butler.yaml ]; then
     butler create DATA_REPO
     butler register-instrument DATA_REPO lsst.obs.necam.NeCam
+    butler write-curated-calibrations DATA_REPO lsst.obs.necam.NeCam
 fi
 
 # Import the reference catalogues to the butler.
@@ -29,6 +30,6 @@ fi
 
 pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml \
   --input NeCam/raw/all --register-dataset-types \
-  -p "${PIPE_TASKS_DIR}/pipelines/DRP.yaml#processCcd" \
+  -p "$OBS_NECAM_DIR/pipelines/DRP.yaml#isr" \
   --instrument lsst.obs.necam.NeCam \
   --output-run demo_collection

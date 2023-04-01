@@ -1,0 +1,4 @@
+description: DRP specialized for NeCam
+instrument: lsst.obs.necam.NeCam
+imports:
+  - location: $PIPE_TASKS_DIR/pipelines/DRP.yaml

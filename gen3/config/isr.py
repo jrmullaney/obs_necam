@@ -13,3 +13,4 @@ config.doBias = False
 config.doDark = False
 config.doFlat = False
 config.doSaturationInterpolation = False
+config.doFringe = False

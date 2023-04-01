@@ -28,7 +28,8 @@ class NeCam(Instrument):
             getPackageDir("obs_necam"),
             "camera",
             'n1_necam.yaml')
-        return yamlCamera.makeCamera(path)
+        camera = yamlCamera.makeCamera(path) 
+        return camera
 
     @classmethod
     def getName(cls):
@@ -55,19 +56,19 @@ class NeCam(Instrument):
 
         #Register the instrument:
         obsMax = 2**5 #NeCam only ever took 32 images!
-        registry.insertDimensionData(
-            "instrument",
-            {
-                "name": self.getName(),
-                "detector_max": 1,
-                "visit_max": obsMax,
-                "exposure_max": obsMax,
-                "class_name": get_full_type_name(self)
-            }
-            )
+        with registry.transaction():
+            registry.syncDimensionData(
+                "instrument",
+                {
+                    "name": self.getName(),
+                    "detector_max": 1,
+                    "visit_max": obsMax,
+                    "exposure_max": obsMax,
+                    "class_name": get_full_type_name(self)
+                }, update=update)
 
-        #Register the detector(s):
-        registry.insertDimensionData(
+            #Register the detector(s):
+            registry.syncDimensionData(
                 "detector",
                 {
                     "instrument": self.getName(),
@@ -76,8 +77,7 @@ class NeCam(Instrument):
                     "name_in_raft": None,
                     "raft": None,
                     "purpose": None
-                }
-                )
+                },update=update)
 
         #Registers the filter(s):
         self._registerFilters(registry)
