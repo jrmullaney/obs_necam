@@ -28,8 +28,9 @@ if [ ! -d DATA_REPO/NeCam/raw ]; then
     butler define-visits DATA_REPO lsst.obs.necam.NeCam --collections NeCam/raw/all
 fi
 
-pipetask run -d "exposure=1" -b DATA_REPO/butler.yaml \
-  --input NeCam/raw/all --register-dataset-types \
+pipetask run -b DATA_REPO/butler.yaml \
+  --input NeCam/raw/all,NeCam/calib \
+  --register-dataset-types \
   -p "$OBS_NECAM_DIR/pipelines/DRP.yaml#isr" \
-  --instrument lsst.obs.necam.NeCam \
-  --output-run demo_collection
+  --output-run demo_collection \
+  --instrument lsst.obs.necam.NeCam

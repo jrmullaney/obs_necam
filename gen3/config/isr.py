@@ -14,3 +14,5 @@ config.doDark = False
 config.doFlat = False
 config.doSaturationInterpolation = False
 config.doFringe = False
+config.doLinearize = False
+config.doCrosstalk = False

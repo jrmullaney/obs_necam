@@ -28,7 +28,7 @@ class NeCam(Instrument):
             getPackageDir("obs_necam"),
             "camera",
             'n1_necam.yaml')
-        camera = yamlCamera.makeCamera(path) 
+        camera = yamlCamera.makeCamera(path)
         return camera
 
     @classmethod
@@ -53,6 +53,7 @@ class NeCam(Instrument):
         This populates the database with instrument and detector-specific information, and is implemented with:
         butler register-instrument DATA_REPO lsst.obs.necam.NeCam
         '''
+        camera = self.getCamera()
 
         #Register the instrument:
         obsMax = 2**5 #NeCam only ever took 32 images!
@@ -68,16 +69,19 @@ class NeCam(Instrument):
                 }, update=update)
 
             #Register the detector(s):
-            registry.syncDimensionData(
-                "detector",
-                {
-                    "instrument": self.getName(),
-                    "id":1,
-                    "full_name": '01',
-                    "name_in_raft": None,
-                    "raft": None,
-                    "purpose": None
-                },update=update)
+            for detector in camera:
+                registry.syncDimensionData(
+                    "detector",
+                    {
+                        "instrument": self.getName(),
+                        "id": detector.getId(),
+                        "full_name": detector.getName(),
+                        "name_in_raft": detector.getName(),
+                        "raft": detector.getName(),
+                        "purpose": str(detector.getType()).split(".")[-1],
+                    },
+                    update=update
+                )
 
         #Registers the filter(s):
         self._registerFilters(registry)

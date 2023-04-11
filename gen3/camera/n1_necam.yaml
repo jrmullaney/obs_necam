@@ -41,4 +41,3 @@ CCDs:
                 linearityType: "None"
                 linearityThreshold: 0
                 linearityMax: 65535
-
