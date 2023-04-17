@@ -7,7 +7,7 @@ ProcessCcd runs a lot of processes, but they are split into three broad sections
 - Image Characterisation (background subtraction, PSF modelling, CR repair);
 - Imaga Calibration (astrometric and photometric calibration).
 
-Subsequently, there are a **huge** number of config parameters that one can adjust for processCcd. To keep things a little tidier, I like to split the processCcd's config parameters into three other config files corresponding to each of the above three sections. 
+Subsequently, there are a **huge** number of config parameters that one can adjust for processCcd. To keep things a little tidier, I like to split the processCcd's config parameters into three other config files corresponding to each of the above three sections.
 '''
 
 #Grab the path to this config directory:
@@ -21,4 +21,5 @@ config.charImage.load(os.path.join(configDir, "characterize.py"))
 
 #Load Calibrate configurations
 config.doCalibrate = False
+import pdb; pdb.set_trace()
 config.calibrate.load(os.path.join(configDir, "calibrate.py"))

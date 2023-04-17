@@ -12,8 +12,9 @@ config.connections.astromRefCat = "ps1_pv3_3pi_20170110"
 # (even though we're not using Gen2).
 config.photoRefObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
 config.astromRefObjLoader.ref_dataset_name = "ps1_pv3_3pi_20170110"
- 
+
 # Don't attempt to do photo or astrometry calibration on simulated NeCam
 # images.
 config.doPhotoCal = False
 config.doAstrometry = False
+config.doComputeSummaryStats = False

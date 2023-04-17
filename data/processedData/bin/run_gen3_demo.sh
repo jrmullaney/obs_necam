@@ -31,6 +31,5 @@ fi
 pipetask run -b DATA_REPO/butler.yaml \
   --input NeCam/raw/all,NeCam/calib \
   --register-dataset-types \
-  -p "$OBS_NECAM_DIR/pipelines/DRP.yaml#isr" \
-  --output-run demo_collection \
-  --instrument lsst.obs.necam.NeCam
+  -p "$OBS_NECAM_DIR/pipelines/DRP.yaml" \
+  --output-run demo_collection
